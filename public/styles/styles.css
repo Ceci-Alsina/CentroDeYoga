@@ -1,0 +1,163 @@
+/* Colores de diseño */
+:root {
+    --color-light-blue: rgb(181, 192, 208);
+    --color-light-grey: rgb(204, 211, 202);
+    --color-peach: rgb(245, 232, 221);
+    --color-light-pink: rgb(238, 211, 217);
+    --color-light-violet: rgb(230, 222, 236);
+    --color-light-violeta: rgb(121, 103, 134);
+
+    /* Para cambiar el color a las imagenes svg */
+    --color-light-blue-filter: brightness(0) saturate(100%) invert(84%) sepia(26%) saturate(143%) hue-rotate(176deg) brightness(88%) contrast(89%);
+    --color-light-grey-filter: brightness(0) saturate(100%) invert(88%) sepia(9%) saturate(177%) hue-rotate(61deg) brightness(102%) contrast(78%);
+    --color-peach-filter: brightness(0) saturate(100%) invert(96%) sepia(21%) saturate(423%) hue-rotate(302deg) brightness(99%) contrast(94%);
+    --color-light-pink-filter: brightness(0) saturate(100%) invert(87%) sepia(3%) saturate(1424%) hue-rotate(301deg) brightness(105%) contrast(87%);
+    --color-light-violet-filter: brightness(0) saturate(100%) invert(99%) sepia(36%) saturate(1047%) hue-rotate(185deg) brightness(91%) contrast(103%);
+    --color-light-violeta-filter: brightness(0) saturate(100%) invert(45%) sepia(9%) saturate(1086%) hue-rotate(232deg) brightness(91%) contrast(90%);
+}
+
+body {
+    font-family: "Libre Baskerville", Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    color: black;
+    background: linear-gradient(to right, var(--color-light-blue), var(--color-light-pink));
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: linear-gradient(to right, var(--color-light-violeta), var(--color-light-blue));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    /* el elemento está posicionado de acuerdo al flujo normal del documento,
+    y luego es desplazado con relación a su ancestro que se desplaza más cercano
+    y su bloque contenedor (en-US)(ancestro en nivel de bloque más cercano) incluyendo
+    elementos relacionados a tablas, basados ​​en los valores de top, right, bottom, y left.
+    El desplazamiento no afecta la posición de ningún otro elemento.*/
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    /*flexbox para alinear los elementos horizontalmente*/
+    justify-content: space-between;
+    /* Alinea los elementos a los extremos del contenedor */
+    align-items: center;
+    /*centra los elementos verticamente*/
+    padding: 20px;
+
+}
+
+.logo img {
+    width: 120px;
+    /* Ajusta el tamaño según tus necesidades */
+    height: 120px;
+    /* Altura igual al ancho para mantener la proporción y crear un círculo perfecto */
+    border-radius: 50%;
+    /* Esto hace que el borde sea completamente redondo */
+    object-fit: cover;
+    /* Asegura que la imagen cubra completamente el espacio sin deformarse */
+}
+
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav li {
+    border-bottom: 0.15rem solid transparent;
+}
+
+nav li a {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    display: block;
+}
+
+nav li:hover {
+    border-bottom: 0.15rem solid var(--color-light-grey);
+}
+
+.contenido {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    flex-direction: row;
+    /*para que el contenido se ponga en la misma fila*/
+
+}
+
+footer {
+    background: linear-gradient(to right, var(--color-light-violeta), var(--color-light-blue));
+    color: black;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+footer {
+    display: grid;
+    padding-top: 1rem;
+    width: auto;
+    height: auto;
+}
+
+footer > div {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.footer-redes {
+    align-content: center;
+}
+
+.footer-redes > a {
+    text-decoration: none;
+}
+
+.footer-redes > a > img {
+    width: 40px;
+    height: 40px;
+    filter: var(--color-light-grey-filter);
+}
+
+.powered-by {
+    color: var(--color-light-pink);
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    font-size: 0.8rem;
+}
+
+/* Media Queries para pantallas de 992px */
+@media (max-width: 992px) {
+    .contenido {
+        flex-direction: column;
+        /* Cambia la disposición de fila a columna */
+    }
+}
+
+/* Media Queries para pantallas de 800px */
+@media (max-width: 800px) {
+    .contenido {
+        flex-direction: column;
+        /* Mantiene la disposición en columna */
+    }
+
+    header,
+    nav ul {
+        flex-direction: column;
+        /* Cambia la navegación a una disposición vertical */
+    }
+
+    nav li {
+        width: 100%;
+        /* Hace que cada enlace de navegación ocupe todo el ancho disponible */
+    }
+}

@@ -1,0 +1,129 @@
+html, body {
+    height: 100%; /* Asegura que el html y body ocupen toda la altura de la ventana */
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en una dirección de columna */
+    margin: 0;
+}
+
+body {
+    min-height: 100vh; /* Min-height es mejor para contenido variable */
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* Permite que el main expanda para ocupar el espacio disponible */
+}
+
+footer {
+    width: 100%;
+    background: linear-gradient(to right, var(--color-light-violeta), var(--color-light-blue));
+    color: black;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#contactoContenido {
+    display: grid;
+}
+
+#contactoContenido > div {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+#formularioContacto {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    margin-right: 4rem;
+}
+
+#formularioContacto > label {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+#formularioContacto > input, #formularioContacto > textarea, #formularioContacto > select {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 2rem;
+    width: 25rem; /* para que todos los inputs y select tengan el mismo tamaño */
+}
+
+#formularioContacto > textarea {
+    height: 5rem;
+}
+
+#formularioContacto > div {
+    margin-left: 1rem;
+}
+
+#formularioContacto > div > input[type=submit], #formularioContacto > div > input[type=reset] {
+    width: 100px;
+    background-color: var(--color-light-violeta);
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+#formularioContacto > select {
+    border: 1px solid gray;
+    background-color: white;
+    padding-left: 1rem;
+    padding-right: 0.125rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+#rangoEdad {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Media Queries responsive */
+@media (max-width: 992px) {
+    #contactoContenido > div {
+        grid-template-columns: 1fr;
+        margin-left: 1rem;
+    }
+
+    #contactoContenido > div > p {
+        width: 75%;
+    }
+
+    #formularioContacto {
+        grid-template-columns: 1fr;
+    }
+
+    #formularioContacto > label {
+        margin-bottom: 0.25rem;
+    }
+
+    #formularioContacto > input, #formularioContacto > textarea, #formularioContacto > select {
+        width: 100%; /* Ajusta el ancho en pantallas pequeñas */
+        margin-top: 0.25rem;
+    }
+}
+
+@media (max-width: 800px) {
+    #contactoContenido > div {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    
+    #formularioContacto > label {
+        margin-bottom: 0.25rem;
+    }
+
+    #formularioContacto > input, #formularioContacto > textarea, #formularioContacto > select {
+        width: 100%; /* Ajusta el ancho en pantallas pequeñas */
+        margin-top: 0.25rem;
+    }
+}

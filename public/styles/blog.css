@@ -1,0 +1,217 @@
+/* Colores de diseño */
+:root {
+    --color-light-blue: rgb(181, 192, 208);
+    --color-light-grey: rgb(204, 211, 202);
+    --color-peach: rgb(245, 232, 221);
+    --color-light-pink: rgb(238, 211, 217);
+    --color-light-violet: rgb(230, 222, 236);
+    --color-light-violeta: rgb(121, 103, 134);
+}
+
+/* Style buscador */
+.search-container {
+    text-align: center;
+}
+
+#searchInput {
+    padding: 8px;
+    margin-right: 5px;
+    width: 200px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    padding: 8px 10px;
+    margin: 10px;
+    background-color: var(--color-light-violeta);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--color-light-pink);
+    color: black;
+}
+
+
+/* Estilos generales */
+.img-overlay-container {
+    position: relative;
+    /* Permite el posicionamiento absoluto de los elementos internos respecto a este contenedor */
+    text-align: center;
+    /* Centra el texto horizontalmente */
+}
+
+.img-overlay-container img {
+    width: 100%;
+    /* Asegura que la imagen cubra todo el ancho del contenedor */
+    height: 450px;
+    object-fit: cover; /* Asegura que la imagen cubra el área sin deformarse */
+}
+
+.img-text {
+    position: absolute;
+    /* Posiciona el texto de manera absoluta dentro del contenedor */
+    top: 6%;
+    /* Alinea el texto en la parte superior del contenedor */
+    left: 50%;
+    /* Centra el texto horizontalmente */
+    transform: translateX(-50%);
+    /* Ajuste fino para centrar exactamente el texto */
+    width: 90%;
+    /* Ancho del texto para asegurar margen */
+    color: rgb(2, 0, 7);
+    /* Color del texto */
+    /* background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para mejorar la legibilidad */
+}
+
+.img-text h1{
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6); /* Mejora la legibilidad sobre la imagen */
+}
+
+.img-text p{
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+}
+
+.imagen-blog {
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+}
+
+.section-blog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.section-blog article{
+    width: 45%;
+    margin: 1%;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-blog article h2{
+    font-size: 2rem;
+    word-wrap: break-word; /* Asegura que las palabras no superen el contenedor */
+    overflow-wrap: break-word; /* Rompe la palabra al final del contenedor si es necesario */
+    margin: 5px; /* Espacio alrededor del texto */
+}
+.section-blog article h3{
+    font-size: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin: 5px;
+}
+.section-blog article p {
+    text-align: justify;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.section-blog a{
+    display: block;
+    text-decoration: none;
+    color: var(--color-light-violeta);
+    text-align: right;
+    margin: 5px;
+}
+
+/* Media Queries para pantallas de 992px */
+@media (max-width: 992px) {
+    .contenido {
+        flex-direction: column;
+        /* Cambia la disposición de fila a columna */
+    }
+
+    .item1,
+    .sidebar {
+        width: 100%;
+        /* Hace que ambos bloques ocupen todo el ancho disponible */
+        max-width: 100%;
+        /* Asegura que no excedan el ancho del contenedor */
+        margin-top: 10px;
+        /* Añade espacio entre los bloques */
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    .img-text h1{
+        font-size: 2.3rem;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.6); /* Mejora la legibilidad sobre la imagen */
+    }
+    
+    .img-text p{
+        font-size: 1rem;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    }
+    .section-blog article h2 {
+        font-size: 1.7rem; /*  tablets */
+        overflow: hidden;
+    }
+
+    .section-blog article h3 {
+        font-size: 1.2rem; /* tablets */
+    }
+}
+
+
+/* Media Queries para pantallas de 800px */
+@media (max-width: 800px) {
+    .contenido {
+        flex-direction: column;
+        /* Mantiene la disposición en columna */
+    }
+
+    .item1,
+    .sidebar {
+        width: 100%;
+        /* Asegura que ambos bloques ocupen todo el ancho */
+        max-width: 100%;
+        /* Asegura que no excedan el ancho del contenedor */
+        margin-top: 10px;
+        /* Mantiene el espacio entre los bloques */
+    }
+
+    header,
+    nav ul {
+        flex-direction: column;
+        /* Cambia la navegación a una disposición vertical */
+    }
+
+    nav li {
+        width: 100%;
+        /* Hace que cada enlace de navegación ocupe todo el ancho disponible */
+    }
+
+    .search-container {
+        width: 100%;
+    }
+    .img-text h1{
+        font-size: 2rem;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.6); /* Mejora la legibilidad sobre la imagen */
+    }
+    
+    .img-text p{
+        font-size: 0.9rem;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    }
+    .section-blog article h2 {
+        font-size: 1.2rem; /* Más pequeño p/ móviles */
+        overflow: hidden;
+    }
+
+    .section-blog article h3 {
+        font-size: 1.1rem; /* Más pequeño p/móviles */
+    }
+}
