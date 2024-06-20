@@ -32,6 +32,7 @@
             <li><a href="../index.html">Inicio</a></li>
             <li><a href="clases.html">Clases</a></li>
             <li><a href="blog.html">Blog</a></li>
+            <li><a href="adminMensajes.html">Admin. Mensajes</a></li>
         </ul>
       </nav>
     </header>
@@ -44,7 +45,7 @@
                 <div>
                     <p>Dejá un mensaje y te contactaré a la brevedad.</p>
 
-                    <form id="formularioContacto" action="../formulario.html">
+                    <form id="formularioContacto">
                         <label for="nombre">Nombre:</label>
                         <input type="text" 
                                id="nombre" 
@@ -77,8 +78,10 @@
                         <label for="mensaje">Mensaje:</label>
                         <textarea id="mensaje" name="mensaje" pattern="[a-zA-Z\s]{1,200}" required></textarea>
                         <span></span>
+                        <label for="recibeNewsletter"><input type="checkbox" id="recibeNewsletter" name="recibeNewsletter"> Desea recibir nuestra Newsletter</label>
+                        <span></span>
                         <br>
-                        <span></span>   
+                        <span></span>
                         <div>
                             <input type="submit" value="Enviar">
                             <input type="reset" value="Borrar">
@@ -87,6 +90,11 @@
                     </form>
                 </div>
             </div>
+            <dialog id="dialogoRespuestaSubmit">
+                <div id="cuerpoDialogoRespuestaSubmit"></div>
+                <br>
+                <button id="cerrarDialogoRespuestaSubmit">Cerrar</button>
+            </dialog>
         </section>
     </main>
 
