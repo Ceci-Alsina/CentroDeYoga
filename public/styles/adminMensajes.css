@@ -1,0 +1,29 @@
+
+#adminMensajesContenido {
+    width: 100%;
+}
+
+#adminMensajesContenido > div {
+    width: 100%;
+}
+
+#adminMensajesTable {
+    margin: 0.5rem;
+    width: 100%;
+}
+
+#adminMensajesTable > thead > tr {
+    background-color: var(--color-light-violeta);
+}
+
+#adminMensajesTable > tbody > tr > td {
+    padding: 1rem;
+}
+
+#adminMensajesTable > thead > tr > th {
+    padding: 1rem;
+}
+
+#adminMensajesTable > tbody > tr:nth-child(even) {
+    background-color: var(--color-peach);
+}

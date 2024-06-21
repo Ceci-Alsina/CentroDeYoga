@@ -66,8 +66,18 @@ let impactarConsulta = async (datos) => {
 
 let eliminarMensaje = (reqEliminar) => {
     console.log(reqEliminar)
+    const conexion = await pool.getConnection()
+    const rtaDeleteConsulta = await conexion.query(consultas.CONSULTA.DELETE_GET_BY_ID, id)
+    console.log(rtaDeleteConsulta);
+    const rtaDeleteContacto = await conexion.query(consultas.CONTACTO.DELETE_GET_BY_ID_CONSULTA, id)
+    console.log(rtaDeleteContacto);
+    conexion.release()
 }
 
 let actualizarMensaje = (reqActualizar) => {
     console.log(reqActualizar)
+    const conexion = await pool.getConnection()
+    const rtaUpdate = await conexion.query(consultas.CONSULTA.UPDATE_RESPONDIDO, new Date(), id)
+    console.log(rtaUpdate);
+    conexion.release()
 }
