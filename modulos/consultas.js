@@ -35,10 +35,19 @@ const CONTACTO = {
     INSERT: "INSERT INTO `CONTACTO` (`ID_CONSULTA`, `ID_TIPO_CONTACTO`, `VALOR`) VALUES (?, ?, ?)"
 }
 
+const obtenerTodos = async function(consulta){
+    const conexion = await pool.getConnection()
+    const [filas] = await conexion.query(consulta)
+    conexion.release()
+    //console.log(filas)
+    return filas
+}
+
 //module.exports = {
 export default {
     GENERO,
     RANGO_ETARIO,
     CONSULTA,
-    CONTACTO
+    CONTACTO,
+    obtenerTodos
 }
