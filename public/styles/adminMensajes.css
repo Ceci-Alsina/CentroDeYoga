@@ -35,6 +35,15 @@
 #cuerpoDialogoAdminMensaje > div > div.titulo,
 #cuerpoDialogoAdminMensaje > div > div > span.titulo {
     font-style: italic;
+    padding-top: 0.5rem;
+}
+
+#cuerpoDialogoAdminMensaje > div > div.filaDialogo {
+    padding-top: 0.5rem;
+}
+
+#cuerpoDialogoAdminMensaje > div > div > span.material-symbols-outlined {
+    font-size: 20px;
 }
 
 #cerrarDialogoAdminMensaje {

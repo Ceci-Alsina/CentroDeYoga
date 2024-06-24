@@ -22,8 +22,8 @@ const CONSULTA = {
             ', re.RANGO' +
             ', g.ID AS ID_GENERO' +
             ', g.DESCRIPCION AS GENERO' +
-            ', con1.VALOR AS CONTACTO_TEL' +
-            ', con2.VALOR AS CONTACTO_MAIL' +
+            ', con1.VALOR AS CONTACTO_MAIL' +
+            ', con2.VALOR AS CONTACTO_TEL' +
             ' FROM CONSULTA AS c' +
             ' INNER JOIN RANGO_ETARIO AS re ON re.ID = c.ID_RANGO_ETARIO' +
             ' INNER JOIN GENERO AS g ON g.ID = c.ID_GENERO' +

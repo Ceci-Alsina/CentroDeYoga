@@ -87,6 +87,21 @@ const formatearBotonera = (fechaRespuesta, id) => {
     return elementos
 }
 
+const copiarAlClipboard = async (texto) => {
+    try {
+        await navigator.clipboard.writeText(texto)
+    } catch(e){
+        console.error(e)
+    }
+}
+
+const getLinkCopiar = (mail) => {
+    let copiar = "copiarAlClipboard('" + mail + "')"
+    return mail != "null" ?
+            mail + ' <a href="#" onclick="' + copiar + '"><span class="material-symbols-outlined">content_copy</span></a>'
+            : "&nbsp;"
+}
+
 const mostrarDialogoMensaje = (evento) => {
     let dataset = evento.target.dataset
 
@@ -103,10 +118,10 @@ const mostrarDialogoMensaje = (evento) => {
                                 + "<textarea rows='5' cols='25' readonly>" 
                                 + dataset.mensaje
                                 + "</textarea>"
-                                + "<div>"
-                                + "<span class='titulo'>Mail:</span> " + (dataset.mail != "null" ? dataset.mail : "&nbsp;")
+                                + "<div class='filaDialogo'>"
+                                + "<span class='titulo'>Mail:</span> " + getLinkCopiar(dataset.mail)
                                 + "</div>"
-                                + "<div>"
+                                + "<div class='filaDialogo'>"
                                 + "<span class='titulo'>Teléfono:</span> " + (dataset.telefono != "null" ? dataset.telefono : "&nbsp;")
                                 + "</div>"
                                 + "</div>"
