@@ -36,51 +36,51 @@ const formatearRecibeNewsletter = (recibeNewsletter) => {
 }
 
 const respondido = (evento) => {
-    console.log(evento)
+    let dataset = evento.target.parentElement.dataset
 
-    try {
-        const response = await fetch("/mensajes", {
+    fetch("/mensajes", {
             method: "PUT",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({id: 1})
+            body: JSON.stringify({'id': dataset.id})
         })
-
-        console.log(response)
-
-    } catch (e) {
-        console.error(e)
-    }
+        .then((response) => {
+            if(response.status == 200){
+                obtenerMensajes()
+            }
+        })
+        .catch((e) => console.error(e))
 }
 
 const eliminar = (evento) => {
-    console.log(evento)
+    let dataset = evento.target.parentElement.dataset
 
-    try {
-        const response = await fetch("/mensajes", {
-            method: "DELETE",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({id: 1})
+    fetch("/mensajes", {
+        method: "DELETE",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: dataset.id})
         })
-
-        console.log(response)
-
-    } catch (e) {
-        console.error(e)
-    }
+        .then((response) => {
+            if(response.status == 200){
+                obtenerMensajes()
+            }
+        })
+        .catch((e) => console.error(e))
 }
 
-const formatearBotonera = (fechaRespuesta) => {
+const formatearBotonera = (fechaRespuesta, id) => {
     let elementos = []
 
     if(fechaRespuesta){
         elementos.push(getImg("../img/iconos/check.svg", "OK"))
     } else {
-        let anchorResponder = getAnchor("Responder", null, respondido)
+        let anchorResponder = getAnchor("Marcar como Respondido", null, respondido)
         anchorResponder.appendChild(getImg("../img/iconos/reply.svg", "R"))
+        anchorResponder.setAttribute('data-id', id)
         elementos.push(anchorResponder)
 
         let anchorEliminar = getAnchor("Eliminar", null, eliminar)
         anchorEliminar.appendChild(getImg("../img/iconos/delete.svg", "E"))
+        anchorEliminar.setAttribute('data-id', id)
         elementos.push(anchorEliminar)
     }
 
@@ -88,27 +88,49 @@ const formatearBotonera = (fechaRespuesta) => {
 }
 
 const mostrarDialogoMensaje = (evento) => {
-    let cuerpoDialogo = document.getElementById("cuerpoDialogoAdminMensaje")
-    //mostrar contactos y mensaje
-    //document.getElementsByTagName('a')[0].setAttribute('data-prueba', "esta es una prueba")
-    //document.getElementsByTagName('a')[0].getAttribute('data-prueba') 
-    cuerpoDialogo.textContent = ""
+    let dataset = evento.target.dataset
 
+    document.getElementById("cerrarDialogoAdminMensaje")
+            .addEventListener('click', function(){
+        let dialogo = document.getElementById("dialogoAdminMensaje")
+        dialogo.close()
+    })
+
+    let cuerpoDialogo = document.getElementById("cuerpoDialogoAdminMensaje")
+    
+    cuerpoDialogo.innerHTML = "<div>"
+                                + "<div class='titulo'>Mensaje</div>"
+                                + "<textarea rows='5' cols='25' readonly>" 
+                                + dataset.mensaje
+                                + "</textarea>"
+                                + "<div>"
+                                + "<span class='titulo'>Mail:</span> " + (dataset.mail != "null" ? dataset.mail : "&nbsp;")
+                                + "</div>"
+                                + "<div>"
+                                + "<span class='titulo'>Teléfono:</span> " + (dataset.telefono != "null" ? dataset.telefono : "&nbsp;")
+                                + "</div>"
+                                + "</div>"
     let dialogo = document.getElementById("dialogoAdminMensaje")
     dialogo.showModal()
 }
 
-const formatearMensaje = (mensaje) => {
+const formatearMensaje = (mensaje, mail, telefono) => {
     let anchor = getAnchor(mensaje, null, mostrarDialogoMensaje)
     anchor.innerText = mensaje.substring(0, 5) + "..."
-
+    anchor.setAttribute('data-mensaje', mensaje)
+    anchor.setAttribute('data-mail', mail)
+    anchor.setAttribute('data-telefono', telefono)
     return anchor
 }
 
 const cargarDatosRecibidos = (datos) => {
-    console.log(datos);
+    //console.log(datos);
 
     let tablaTBody = document.getElementById("adminMensajesTable").getElementsByTagName('tbody')[0]
+
+    while(tablaTBody.firstChild){
+        tablaTBody.removeChild(tablaTBody.firstChild)
+    }
 
     datos.forEach((mensaje, indice) => {
         let fila = tablaTBody.insertRow(indice)
@@ -119,18 +141,23 @@ const cargarDatosRecibidos = (datos) => {
         fila.insertCell(4).innerHTML = mensaje.RANGO
         fila.insertCell(5).innerHTML = mensaje.GENERO
         fila.insertCell(6).appendChild(formatearRecibeNewsletter(mensaje.RECIBE_NEWSLETTER))
-        fila.insertCell(7).appendChild(formatearMensaje(mensaje.MENSAJE))
+        fila.insertCell(7).appendChild(formatearMensaje(mensaje.MENSAJE, mensaje.CONTACTO_MAIL, mensaje.CONTACTO_TEL))
         fila.insertCell(8).innerHTML = formatearFecha(mensaje.FECHA_RESPUESTA)
 
-        formatearBotonera(mensaje.FECHA_RESPUESTA).forEach((e) => {
-            fila.insertCell(9).appendChild(e)
+        let botonera = document.createElement('div')
+        formatearBotonera(mensaje.FECHA_RESPUESTA, mensaje.ID).forEach((e) => {
+            botonera.appendChild(e)
         })
+
+        fila.insertCell(9).appendChild(botonera)
     });
 };
 
-document.addEventListener("DOMContentLoaded", function () {
+const obtenerMensajes = () => {
     fetch('/mensajes')
         .then((respuesta) => respuesta.json())
-        .then(cargarDatosRecibidos)
+        .then((datos) => cargarDatosRecibidos(datos))
         .catch((error) => console.error(error));
-});
+}
+
+document.addEventListener("DOMContentLoaded", obtenerMensajes);

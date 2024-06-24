@@ -33,8 +33,8 @@ CREATE TABLE `CONSULTA` (
   `APELLIDO` varchar(50) NOT NULL COMMENT 'Apellido persona que consulta',
   `MENSAJE` varchar(200) NOT NULL COMMENT 'Mensaje de consulta',
   `RECIBE_NEWSLETTER` tinyint(1) NOT NULL COMMENT 'Define si recibe o no la newsletter',
-  `FECHA_ALTA` date NOT NULL COMMENT 'Fecha de alta de la consulta',
-  `FECHA_RESPUESTA` date DEFAULT NULL COMMENT 'Fecha en que se responde la consulta',
+  `FECHA_ALTA` datetime NOT NULL COMMENT 'Fecha de alta de la consulta',
+  `FECHA_RESPUESTA` datetime DEFAULT NULL COMMENT 'Fecha en que se responde la consulta',
   `ID_RANGO_ETARIO` int(11) NOT NULL COMMENT 'Rango etario de la persona que consulta',
   `ID_GENERO` int(11) NOT NULL COMMENT 'Género de la persona que consulta'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Consulta recibidas por la página';

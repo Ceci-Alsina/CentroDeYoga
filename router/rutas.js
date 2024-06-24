@@ -10,17 +10,16 @@ import {altaContactoPOST,
 
 const rutas = express.Router()
 
-app.get('/generos', obtenerGenerosGET)
+rutas.get('/generos', obtenerGenerosGET)
 
-app.get('/rangosEtarios', obtenerRangosEtariosGET)
+rutas.get('/rangosEtarios', obtenerRangosEtariosGET)
 
+rutas.post('/altaContacto', altaContactoPOST)
 
-app.post('/altaContacto', altaContactoPOST)
+rutas.get('/mensajes', obtenerMensajesGET)
 
-app.get('/mensajes', obtenerMensajesGET)
+rutas.delete('/mensajes', eliminarMensajeDELETE)
 
-app.delete('/mensajes', eliminarMensajeDELETE)
-
-app.put('/mensajes', actualizarMensajePUT)
+rutas.put('/mensajes', actualizarMensajePUT)
 
 export default rutas

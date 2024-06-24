@@ -1,6 +1,14 @@
-import pool from './config/db.js'
-import consultas from './modulos/consultas.js'
+import pool from '../config/db.js'
+import consultas from '../modulos/consultas.js'
 
+
+const obtenerTodos = async function(consulta){
+    const conexion = await pool.getConnection()
+    const [filas] = await conexion.query(consulta)
+    conexion.release()
+    //console.log(filas)
+    return filas
+}
 
 export const altaContactoPOST = async (req, res) => {
     try {
@@ -15,7 +23,7 @@ export const altaContactoPOST = async (req, res) => {
 
 export const obtenerMensajesGET = async (req, res) => {
     try {
-        res.json(await consultas.obtenerTodos(consultas.CONSULTA.TODOS))
+        res.json(await obtenerTodos(consultas.CONSULTA.TODOS))
     } catch(err){
         console.error('Error conectando con la base de datos', err)
         res.status(500)
@@ -48,7 +56,7 @@ let impactarConsulta = async (datos) => {
 
     const conexion = await pool.getConnection()
 
-    const rtaInsertConsulta = await conexion.query(consultas.CONSULTA.INSERT, [datos.nombre, datos.apellido, datos.mensaje, datos.recibeNewsletter ? 1 : 0, new Date(), null, datos.edad, datos.genero])
+    const rtaInsertConsulta = await conexion.query(consultas.CONSULTA.INSERT, [datos.nombre, datos.apellido, datos.mensaje, (datos.recibeNewsletter && datos.recibeNewsletter == "true") ? 1 : 0, new Date(), null, datos.edad, datos.genero])
     //console.log(rtaInsertConsulta)
 
     if(datos.email){
@@ -64,20 +72,17 @@ let impactarConsulta = async (datos) => {
     conexion.release()
 }
 
-let eliminarMensaje = (reqEliminar) => {
-    console.log(reqEliminar)
+let eliminarMensaje = async (reqEliminar) => {
     const conexion = await pool.getConnection()
-    const rtaDeleteConsulta = await conexion.query(consultas.CONSULTA.DELETE_GET_BY_ID, id)
-    console.log(rtaDeleteConsulta);
-    const rtaDeleteContacto = await conexion.query(consultas.CONTACTO.DELETE_GET_BY_ID_CONSULTA, id)
-    console.log(rtaDeleteContacto);
+    const rtaDeleteConsulta = await conexion.query(consultas.CONSULTA.DELETE_GET_BY_ID, reqEliminar.id)
+    const rtaDeleteContacto = await conexion.query(consultas.CONTACTO.DELETE_GET_BY_ID_CONSULTA, reqEliminar.id)
     conexion.release()
+    return "OK"
 }
 
-let actualizarMensaje = (reqActualizar) => {
-    console.log(reqActualizar)
+let actualizarMensaje = async (reqActualizar) => {
     const conexion = await pool.getConnection()
-    const rtaUpdate = await conexion.query(consultas.CONSULTA.UPDATE_RESPONDIDO, new Date(), id)
-    console.log(rtaUpdate);
+    const rtaUpdate = await conexion.query(consultas.CONSULTA.UPDATE_RESPONDIDO, [new Date(), parseInt(reqActualizar.id)])
     conexion.release()
+    return "OK"
 }
