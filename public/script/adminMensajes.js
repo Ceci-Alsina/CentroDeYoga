@@ -37,7 +37,7 @@ const formatearRecibeNewsletter = (recibeNewsletter) => {
 
 const respondido = (evento) => {
     let dataset = evento.target.parentElement.dataset
-
+    
     fetch("/mensajes", {
             method: "PUT",
             headers: {'Content-Type': 'application/json'},
@@ -139,7 +139,7 @@ const formatearMensaje = (mensaje, mail, telefono) => {
 }
 
 const cargarDatosRecibidos = (datos) => {
-    //console.log(datos);
+    console.log(datos);
 
     let tablaTBody = document.getElementById("adminMensajesTable").getElementsByTagName('tbody')[0]
 
@@ -169,6 +169,7 @@ const cargarDatosRecibidos = (datos) => {
 };
 
 const obtenerMensajes = () => {
+    console.log("a buscar los mensajes")
     fetch('/mensajes')
         .then((respuesta) => respuesta.json())
         .then((datos) => cargarDatosRecibidos(datos))

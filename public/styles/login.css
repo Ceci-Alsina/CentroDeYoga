@@ -1,0 +1,120 @@
+html, body {
+    height: 100%; /* Asegura que el html y body ocupen toda la altura de la ventana */
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en una dirección de columna */
+    margin: 0;
+}
+
+body {
+    min-height: 100vh; /* Min-height es mejor para contenido variable */
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* Permite que el main expanda para ocupar el espacio disponible */
+}
+
+footer {
+    width: 100%;
+    background: linear-gradient(to right, var(--color-light-violeta), var(--color-light-blue));
+    color: black;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#loginContenido {
+    display: grid;
+}
+
+#loginContenido > div {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+#formularioLogin {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    margin-right: 4rem;
+}
+
+#formularioLogin > label {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+#formularioLogin > input {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 2rem;
+    width: 25rem; /* para que todos los inputs y select tengan el mismo tamaño */
+}
+
+#formularioLogin > div {
+    margin-left: 1rem;
+}
+
+#formularioLogin > div > input[type=submit],
+#cerrarDialogoRespuestaLogin
+{
+    width: 100px;
+    background-color: var(--color-light-violeta);
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+#dialogoRespuestaLogin {
+    border: 3px solid var(--color-light-violeta);
+    border-radius: 5px;
+    background: var(--color-light-blue);
+    text-align: center;
+}
+
+/* Media Queries responsive */
+@media (max-width: 992px) {
+    #loginContenido > div {
+        grid-template-columns: 1fr;
+        margin-left: 1rem;
+    }
+
+    #loginContenido > div > p {
+        width: 75%;
+    }
+
+    #formularioLogin {
+        grid-template-columns: 1fr;
+    }
+
+    #formularioLogin > label {
+        margin-bottom: 0.25rem;
+    }
+
+    #formularioLogin > input {
+        width: 100%; /* Ajusta el ancho en pantallas pequeñas */
+        margin-top: 0.25rem;
+    }
+}
+
+@media (max-width: 800px) {
+    #loginContenido > div {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    
+    #formularioLogin > label {
+        margin-bottom: 0.25rem;
+    }
+
+    #formularioLogin > input {
+        width: 100%; /* Ajusta el ancho en pantallas pequeñas */
+        margin-top: 0.25rem;
+    }
+}
