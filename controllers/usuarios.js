@@ -3,8 +3,6 @@ import consultas from '../modulos/consultas.js'
 
 export const existeUsuario = async (nombreUsuario, password) => {
     try {
-        console.log(nombreUsuario)
-        console.log(password)
         const conexion = await pool.getConnection()
         const existeElUsuario = await conexion.query(consultas.USUARIOS.EXISTE_USUARIO, [nombreUsuario, password])
         return existeElUsuario

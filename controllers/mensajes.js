@@ -6,7 +6,6 @@ const obtenerTodos = async function(consulta){
     const conexion = await pool.getConnection()
     const [filas] = await conexion.query(consulta)
     conexion.release()
-    //console.log(filas)
     return filas
 }
 
@@ -74,8 +73,8 @@ let impactarConsulta = async (datos) => {
 
 let eliminarMensaje = async (reqEliminar) => {
     const conexion = await pool.getConnection()
-    const rtaDeleteConsulta = await conexion.query(consultas.CONSULTA.DELETE_GET_BY_ID, reqEliminar.id)
     const rtaDeleteContacto = await conexion.query(consultas.CONTACTO.DELETE_GET_BY_ID_CONSULTA, reqEliminar.id)
+    const rtaDeleteConsulta = await conexion.query(consultas.CONSULTA.DELETE_GET_BY_ID, reqEliminar.id)
     conexion.release()
     return "OK"
 }
