@@ -1,6 +1,7 @@
 import express from 'express'
 
 import jwt, { decode } from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 import 'dotenv/config'
 
 const secretkey = process.env.SECRET_KEY
@@ -13,7 +14,7 @@ import {altaContactoPOST,
     eliminarMensajeDELETE,
     actualizarMensajePUT} from '../controllers/mensajes.js'
 
-import {existeUsuario} from '../controllers/usuarios.js'
+import {existeUsuario, getUsuario} from '../controllers/usuarios.js'
 
 const verificarToken = (req, res, next) => {
     const token = req.cookies.token
@@ -27,28 +28,36 @@ const verificarToken = (req, res, next) => {
         req.user = decodificado
         next()
     } catch(error){
-        res.status(401).send('Token inválido')
+        res.status(401).json('Token inválido')
     }
 }
 
-const existeUsuarioRecibido = (usuario) => {
-    const rta = existeUsuario(usuario.usuario, usuario.password)
-    return (rta <= 0) ? 0 : rta
+const existeUsuarioRecibido = async (usuario) => {
+    const usuarioEnBase = await getUsuario(usuario.username)
+    
+    if(usuarioEnBase){
+        const aux = bcrypt.compareSync(usuario.password, usuarioEnBase.PASSWORD)
+        return aux
+    }
+    
+    return false;
 }
 
 const irAAdminMensajesGET = async (req, res) => {
     return res.status(200).redirect('/templates/adminMensajes.html')
 }
 
+const obtenerPassEncriptada = async (req, res) => {
+    const hash = bcrypt.hashSync(req.body.pass, bcrypt.genSaltSync(10))
+    return res.json(hash)
+}
 const rutas = express.Router()
 
 rutas.post('/login', async (req, res) => {
     const user = req.body
     
-    if(existeUsuarioRecibido(user)){
-        console.log(secretkey)
+    if(await existeUsuarioRecibido(user)){
         const token = jwt.sign({user}, secretkey)
-        console.log(token)
 
         res.cookie(
             'token',
@@ -61,12 +70,13 @@ rutas.post('/login', async (req, res) => {
         )
         return irAAdminMensajesGET(req, res)
     } else {
-        res.status(401).send('Credenciales no válidas')
+        res.status(401).json('Credenciales no válidas')
     }
 })
 
 rutas.get('/logout', (req, res) => {
-    res.clearCookie('token').send('Salió correctamente.')
+    //res.clearCookie('token').json('Logout exitoso')
+    res.clearCookie('token').redirect('/')
 })
 
 rutas.get('/generos', obtenerGenerosGET)
@@ -82,5 +92,7 @@ rutas.get('/mensajes', verificarToken, obtenerMensajesGET)
 rutas.delete('/mensajes', verificarToken, eliminarMensajeDELETE)
 
 rutas.put('/mensajes', verificarToken, actualizarMensajePUT)
+
+rutas.get('/passEncriptada', obtenerPassEncriptada)
 
 export default rutas

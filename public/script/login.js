@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
+    let cerrarDialogoRespuestaLogin = document.getElementById("cerrarDialogoRespuestaLogin")
+    cerrarDialogoRespuestaLogin.addEventListener('click', function(){
+        let dialogo = document.getElementById("dialogoRespuestaLogin")
+        dialogo.close()
+    })
+
     let mostrarDialogo = function(mensaje){
         let cuerpoDialogo = document.getElementById("cuerpoDialogoRespuestaLogin")
         cuerpoDialogo.textContent = mensaje
@@ -31,14 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 let rta = await response.json()
                 mostrarDialogo(rta)
             } else {
-                let nuevoContenido = await response.text()
-                console.log(nuevoContenido)
-                document.open()
-                document.write(nuevoContenido)
-                document.close()
-                document.dispatchEvent(new Event("DOMContentLoaded"))
+                document.location.href = response.url
             }
-            
         } catch (e) {
             console.error(e)
         }
