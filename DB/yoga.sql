@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 20-06-2024 a las 05:54:59
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Host: localhost
+-- Generation Time: Jul 05, 2024 at 04:21 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,36 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `yoga`
+-- Database: `yoga`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `CONSULTA`
+-- Table structure for table `CATEGORIAS`
+--
+
+CREATE TABLE `CATEGORIAS` (
+  `ID` int(11) NOT NULL,
+  `DESCRIPCION` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `CATEGORIAS`:
+--
+
+--
+-- Dumping data for table `CATEGORIAS`
+--
+
+INSERT INTO `CATEGORIAS` (`ID`, `DESCRIPCION`) VALUES
+(1, 'Libro'),
+(3, 'Vela');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CONSULTA`
 --
 
 CREATE TABLE `CONSULTA` (
@@ -39,10 +62,18 @@ CREATE TABLE `CONSULTA` (
   `ID_GENERO` int(11) NOT NULL COMMENT 'Género de la persona que consulta'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Consulta recibidas por la página';
 
+--
+-- RELATIONSHIPS FOR TABLE `CONSULTA`:
+--   `ID_GENERO`
+--       `GENERO` -> `ID`
+--   `ID_RANGO_ETARIO`
+--       `RANGO_ETARIO` -> `ID`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `CONTACTO`
+-- Table structure for table `CONTACTO`
 --
 
 CREATE TABLE `CONTACTO` (
@@ -51,10 +82,18 @@ CREATE TABLE `CONTACTO` (
   `VALOR` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Contactos de la consulta';
 
+--
+-- RELATIONSHIPS FOR TABLE `CONTACTO`:
+--   `ID_CONSULTA`
+--       `CONSULTA` -> `ID`
+--   `ID_TIPO_CONTACTO`
+--       `TIPO_CONTACTO` -> `ID`
+--
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `GENERO`
+-- Table structure for table `GENERO`
 --
 
 CREATE TABLE `GENERO` (
@@ -63,17 +102,44 @@ CREATE TABLE `GENERO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Generos';
 
 --
--- Volcado de datos para la tabla `GENERO`
+-- RELATIONSHIPS FOR TABLE `GENERO`:
 --
 
-INSERT INTO `GENERO` (`ID`, `DESCRIPCION`) VALUES(1, 'Hombre');
-INSERT INTO `GENERO` (`ID`, `DESCRIPCION`) VALUES(2, 'Mujer');
-INSERT INTO `GENERO` (`ID`, `DESCRIPCION`) VALUES(3, 'Otro');
+--
+-- Dumping data for table `GENERO`
+--
+
+INSERT INTO `GENERO` (`ID`, `DESCRIPCION`) VALUES
+(1, 'Hombre'),
+(2, 'Mujer'),
+(3, 'Otro');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `RANGO_ETARIO`
+-- Table structure for table `PRODUCTOS`
+--
+
+CREATE TABLE `PRODUCTOS` (
+  `ID` int(11) NOT NULL,
+  `NOMBRE` varchar(50) NOT NULL,
+  `PRECIO` decimal(10,2) NOT NULL,
+  `DESCRIPCION` varchar(100) NOT NULL,
+  `STOCK` int(11) NOT NULL,
+  `IMAGEN` longblob NOT NULL,
+  `ID_CATEGORIA` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `PRODUCTOS`:
+--   `ID_CATEGORIA`
+--       `CATEGORIAS` -> `ID`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `RANGO_ETARIO`
 --
 
 CREATE TABLE `RANGO_ETARIO` (
@@ -82,17 +148,22 @@ CREATE TABLE `RANGO_ETARIO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Rangos Etarios';
 
 --
--- Volcado de datos para la tabla `RANGO_ETARIO`
+-- RELATIONSHIPS FOR TABLE `RANGO_ETARIO`:
 --
 
-INSERT INTO `RANGO_ETARIO` (`ID`, `RANGO`) VALUES(1, '15 a 34 años');
-INSERT INTO `RANGO_ETARIO` (`ID`, `RANGO`) VALUES(2, '35 a 45 años');
-INSERT INTO `RANGO_ETARIO` (`ID`, `RANGO`) VALUES(3, 'mayor a 45 años');
+--
+-- Dumping data for table `RANGO_ETARIO`
+--
+
+INSERT INTO `RANGO_ETARIO` (`ID`, `RANGO`) VALUES
+(1, '15 a 34 años'),
+(2, '35 a 45 años'),
+(3, 'mayor a 45 años');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `TIPO_CONTACTO`
+-- Table structure for table `TIPO_CONTACTO`
 --
 
 CREATE TABLE `TIPO_CONTACTO` (
@@ -101,18 +172,47 @@ CREATE TABLE `TIPO_CONTACTO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tipos de contactos';
 
 --
--- Volcado de datos para la tabla `TIPO_CONTACTO`
---
-
-INSERT INTO `TIPO_CONTACTO` (`ID`, `DESCRIPCION`) VALUES(1, 'Mail');
-INSERT INTO `TIPO_CONTACTO` (`ID`, `DESCRIPCION`) VALUES(2, 'Teléfono');
-
---
--- Índices para tablas volcadas
+-- RELATIONSHIPS FOR TABLE `TIPO_CONTACTO`:
 --
 
 --
--- Indices de la tabla `CONSULTA`
+-- Dumping data for table `TIPO_CONTACTO`
+--
+
+INSERT INTO `TIPO_CONTACTO` (`ID`, `DESCRIPCION`) VALUES
+(1, 'Mail'),
+(2, 'Teléfono');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `USUARIOS`
+--
+
+CREATE TABLE `USUARIOS` (
+  `ID` int(11) NOT NULL COMMENT 'ID de usuario',
+  `usuario` varchar(10) NOT NULL COMMENT 'Nombre de usuario',
+  `nombre` varchar(50) DEFAULT NULL COMMENT 'Nombre del usuario',
+  `apellido` varchar(50) DEFAULT NULL COMMENT 'Apellido del usuario',
+  `PASSWORD` varchar(100) NOT NULL COMMENT 'Password del usuario'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `USUARIOS`:
+--
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `CATEGORIAS`
+--
+ALTER TABLE `CATEGORIAS`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `CONSULTA`
 --
 ALTER TABLE `CONSULTA`
   ADD PRIMARY KEY (`ID`),
@@ -120,57 +220,89 @@ ALTER TABLE `CONSULTA`
   ADD KEY `RANGO_ETARIO_FK` (`ID_RANGO_ETARIO`);
 
 --
--- Indices de la tabla `CONTACTO`
+-- Indexes for table `CONTACTO`
 --
 ALTER TABLE `CONTACTO`
   ADD PRIMARY KEY (`ID_CONSULTA`,`ID_TIPO_CONTACTO`),
   ADD KEY `TIPO_CONTACTO_FK` (`ID_TIPO_CONTACTO`);
 
 --
--- Indices de la tabla `GENERO`
+-- Indexes for table `GENERO`
 --
 ALTER TABLE `GENERO`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indices de la tabla `RANGO_ETARIO`
+-- Indexes for table `PRODUCTOS`
+--
+ALTER TABLE `PRODUCTOS`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `CATEGORIA_FK` (`ID_CATEGORIA`);
+
+--
+-- Indexes for table `RANGO_ETARIO`
 --
 ALTER TABLE `RANGO_ETARIO`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indices de la tabla `TIPO_CONTACTO`
+-- Indexes for table `TIPO_CONTACTO`
 --
 ALTER TABLE `TIPO_CONTACTO`
   ADD PRIMARY KEY (`ID`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- Indexes for table `USUARIOS`
+--
+ALTER TABLE `USUARIOS`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `usuario` (`usuario`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `CONSULTA`
+-- AUTO_INCREMENT for table `CONSULTA`
 --
 ALTER TABLE `CONSULTA`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Restricciones para tablas volcadas
+-- AUTO_INCREMENT for table `PRODUCTOS`
+--
+ALTER TABLE `PRODUCTOS`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `USUARIOS`
+--
+ALTER TABLE `USUARIOS`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de usuario';
+
+--
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `CONSULTA`
+-- Constraints for table `CONSULTA`
 --
 ALTER TABLE `CONSULTA`
   ADD CONSTRAINT `GENERO_FK` FOREIGN KEY (`ID_GENERO`) REFERENCES `GENERO` (`ID`),
   ADD CONSTRAINT `RANGO_ETARIO_FK` FOREIGN KEY (`ID_RANGO_ETARIO`) REFERENCES `RANGO_ETARIO` (`ID`);
 
 --
--- Filtros para la tabla `CONTACTO`
+-- Constraints for table `CONTACTO`
 --
 ALTER TABLE `CONTACTO`
   ADD CONSTRAINT `CONSULTA_FK` FOREIGN KEY (`ID_CONSULTA`) REFERENCES `CONSULTA` (`ID`),
   ADD CONSTRAINT `TIPO_CONTACTO_FK` FOREIGN KEY (`ID_TIPO_CONTACTO`) REFERENCES `TIPO_CONTACTO` (`ID`);
+
+--
+-- Constraints for table `PRODUCTOS`
+--
+ALTER TABLE `PRODUCTOS`
+  ADD CONSTRAINT `CATEGORIA_FK` FOREIGN KEY (`ID_CATEGORIA`) REFERENCES `CATEGORIAS` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

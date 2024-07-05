@@ -1,0 +1,97 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-light-grey);
+}
+
+th {
+    background-color: var(--color-light-blue);
+}
+
+.form-container {
+    display: none;
+    background-color: var(--color-light-grey);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--color-light-violeta);
+    color: white;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--color-light-blue);
+}
+
+.btn-edit {
+    background-color: var(--color-light-blue);
+}
+
+.btn-delete {
+    background-color: var(--color-peach);
+}
+
+.btn-load, .btn-search {
+    background-color: var(--color-light-violeta);
+}
+
+#searchInput {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--color-light-grey);
+    margin-left: 20px;
+}
+
+.small-img {
+    width: 72px;
+    height: auto;
+}
+
+.form-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--color-light-violeta);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-close-btn:hover {
+    background-color: var(--color-light-blue);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group textarea,  .form-group select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--color-light-grey);
+}

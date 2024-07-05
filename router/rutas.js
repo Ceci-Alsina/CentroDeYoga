@@ -14,7 +14,16 @@ import {altaContactoPOST,
     eliminarMensajeDELETE,
     actualizarMensajePUT} from '../controllers/mensajes.js'
 
-import {existeUsuario, getUsuario} from '../controllers/usuarios.js'
+import {getUsuario} from '../controllers/usuarios.js'
+
+import {getAllProducts,
+    getProductById,
+    deleteProduct,
+    createProduct,
+    updateProduct,
+    getCategorias} from '../controllers/productos.js'
+
+import {upload} from '../config/multerConfig.js'
 
 const verificarToken = (req, res, next) => {
     const token = req.cookies.token
@@ -45,6 +54,10 @@ const existeUsuarioRecibido = async (usuario) => {
 
 const irAAdminMensajesGET = async (req, res) => {
     return res.status(200).redirect('/templates/adminMensajes.html')
+}
+
+const irAProductosGET = async (req, res) => {
+    return res.status(200).redirect('/templates/productos.html')
 }
 
 const obtenerPassEncriptada = async (req, res) => {
@@ -92,6 +105,15 @@ rutas.get('/mensajes', verificarToken, obtenerMensajesGET)
 rutas.delete('/mensajes', verificarToken, eliminarMensajeDELETE)
 
 rutas.put('/mensajes', verificarToken, actualizarMensajePUT)
+
+rutas.get('/productos', getAllProducts)
+rutas.get('/productos/:id', getProductById)
+rutas.delete('/productos/:id', deleteProduct)
+rutas.post('/productos', upload, createProduct); // Subida de un solo archivo
+rutas.put('/productos/:id', upload, updateProduct); // Subida de un solo archivo
+rutas.get('/categorias', getCategorias)
+
+rutas.get('/adminProductos', verificarToken, irAProductosGET)
 
 rutas.get('/passEncriptada', obtenerPassEncriptada)
 
