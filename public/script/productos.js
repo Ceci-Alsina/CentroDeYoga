@@ -55,7 +55,7 @@ function showProductForm() {
             </div>
             <div class="form-group">
                 <label for="precio">Precio:</label>
-                <input type="number" id="precio" name="precio" required>
+                <input type="number" id="precio" name="precio" step="0.01" required>
             </div>
             <div class="form-group">
                 <label for="descripcion">Descripción:</label>
@@ -131,7 +131,6 @@ function editProduct(id) {
             document.getElementById('descripcion').value = product.DESCRIPCION;
             document.getElementById('stock').value = product.STOCK;
             document.getElementById('fk_categoria').value = product.ID_CATEGORIA;
-            // No cargar la imagen en el campo de archivo
         })
         .catch(error => console.error('Error:', error));
 }

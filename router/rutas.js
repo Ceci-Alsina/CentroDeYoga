@@ -29,6 +29,7 @@ const verificarToken = (req, res, next) => {
     const token = req.cookies.token
 
     if(!token){
+        req.app.set("origen", req.url)
         return res.status(403).redirect('/templates/login.html')
     }
 
@@ -67,6 +68,7 @@ const obtenerPassEncriptada = async (req, res) => {
 const rutas = express.Router()
 
 rutas.post('/login', async (req, res) => {
+    const origen = req.app.get("origen")
     const user = req.body
     
     if(await existeUsuarioRecibido(user)){
@@ -81,14 +83,15 @@ rutas.post('/login', async (req, res) => {
                 expires: new Date(Date.now() + 3600000)
             }
         )
-        return irAAdminMensajesGET(req, res)
+        return (origen == "/adminMensajes") ?
+                irAAdminMensajesGET(req, res)
+                : irAProductosGET(req, res)
     } else {
         res.status(401).json('Credenciales no válidas')
     }
 })
 
 rutas.get('/logout', (req, res) => {
-    //res.clearCookie('token').json('Logout exitoso')
     res.clearCookie('token').redirect('/')
 })
 
